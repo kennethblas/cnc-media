@@ -1,0 +1,84 @@
+
+@if (showFilter) {
+    <div class="section-categories">
+        @if (initialLoading) {
+            <nz-skeleton-element nzType="button" [nzBlock]="true" [nzActive]="true"></nz-skeleton-element>
+        } @else {
+            <form [formGroup]="filterForm">
+                <nz-input-group [nzPrefix]="prefixTemplateUser">
+                    <input type="text" nz-input placeholder="Search Video" formControlName="search" />
+                </nz-input-group>
+                <ng-template #prefixTemplateUser><span nz-icon nzType="search"></span></ng-template>
+                
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Category" formControlName="category">
+                    @for (fp of categoryOptionsList; track fp.value) { 
+                        <nz-option [nzLabel]="fp.displayName" [nzValue]="fp.value"></nz-option>
+                    }
+                </nz-select>
+            </form>
+        }
+    </div>
+    
+    <nz-divider nzText=""></nz-divider>
+}
+
+@if (initialLoading) {
+    <ng-container *ngTemplateOutlet="videoListLoading; context: { loadingFlag: initialLoading, fromInitLoad: true }"></ng-container>
+} @else {
+    @if (!isFilteredVideoListEmpty) {
+        <div class="section-video-list" (scroll)="onVideoListScroll()">
+
+            <div class="video-list">
+                @for (video of filteredVideoList; track video.id) {
+                    <div class="video-item" (click)="getSelectedVideo(video)">
+                        <app-video-cards [videoDetails]="video"></app-video-cards>
+                    </div>
+                }
+
+                @if (isScrollFetchLoading) {
+                    <ng-container *ngTemplateOutlet="videoListLoading; context: { loadingFlag: isScrollFetchLoading, fromInitLoad: false }"></ng-container>
+                }
+            </div>
+        </div>
+    } @else {
+        <div class="empty-video-list">
+            <nz-empty
+                nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+                [nzNotFoundContent]="contentTpl">
+                <ng-template #contentTpl>
+                    <span>No Data</span>
+                </ng-template>
+            </nz-empty>
+        </div>
+    }
+}
+
+<ng-template #videoListLoading let-isLoadingVideoList="loadingFlag" let-fromInitLoad="fromInitLoad">
+    @if (fromInitLoad) {
+        <div class="section-video-list">
+            <div class="video-list">
+                @for (videoLoader of videoListLoader; track $index) {
+                    <div class="video-item">
+                        <app-video-cards [isLoading]="isLoadingVideoList"></app-video-cards>
+                    </div>
+                }
+            </div>
+        </div>
+    } @else {
+        @for (videoLoader of videoListLoader; track $index) {
+            <div class="video-item">
+                <app-video-cards [isLoading]="isLoadingVideoList"></app-video-cards>
+            </div>
+        }
+    }
+</ng-template>
+
+<!-- <nz-modal [(nzVisible)]="showVideoStream" nzTitle="Custom Modal Title" (nzOnCancel)="closeVideoStream()">
+    <div *nzModalContent>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+        <p>Modal Content</p>
+    </div>
+</nz-modal> -->

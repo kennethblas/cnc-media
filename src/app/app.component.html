@@ -1,0 +1,73 @@
+<nz-layout class="layout-container">
+  <nz-header>
+    <div nz-row nzJustify="start" nzAlign="middle" class="header-content" nzGutter="16px">
+       <span
+          class="trigger"
+          nz-icon
+          [nzType]="isCollapsed ? 'menu' : 'menu-fold'"
+          (click)="isCollapsed = !isCollapsed"
+          nz-col nzSm="2" nzMd="1"
+        ></span>
+      <div class="logo" nz-col nzFlex="auto">
+        <img 
+          nz-image 
+          nzSrc="./assets/img/cnc-logo.png" 
+          nzDisablePreview="true" 
+          alt="cnc_logo" 
+          routerLink="/home" 
+        />
+      </div>
+      <button 
+        nzHide="true"
+        nz-button 
+        nzType="primary" 
+        nzShape="round"
+        class="upload-btn"
+        nz-tooltip
+        nzTooltipPlacement="left"
+        [nzTooltipTitle]="siderCollapsedWidth ? '' : 'Upload'"
+        nz-col nzSm="4" nzMd="4"
+        routerLink="/upload" >
+
+          <span nz-icon nzType="video-camera-add" nzTheme="outline"></span>
+          <span class="upload-btn-txt">Upload</span>
+      </button>
+    </div>
+  </nz-header>
+  
+  <nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzCollapsedWidth]="siderCollapsedWidth ? 60 : 1" [nzTrigger]="null" [nzTheme]="'light'">
+      <ul nz-menu nzMode="inline">
+        <li
+          nz-menu-item
+          nz-tooltip
+          nzTooltipPlacement="right"
+          [nzTooltipTitle]="isCollapsed ? 'Home' : ''"
+          routerLink="/home"
+          routerLinkActive #homeLink="routerLinkActive" [nzSelected]="homeLink.isActive"
+        >
+          <span nz-icon nzType="home"></span>
+          <span>Home</span>
+        </li>
+        <li
+          nz-menu-item
+          nz-tooltip
+          nzTooltipPlacement="right"
+          [nzTooltipTitle]="isCollapsed ? 'Upload' : ''"
+          routerLink="/upload"
+          routerLinkActive #uploadLink="routerLinkActive" [nzSelected]="uploadLink.isActive"
+        >
+          <span nz-icon nzType="video-camera-add" nzTheme="outline"></span>
+          <span>Upload</span>
+        </li>
+        
+      </ul>
+    </nz-sider>
+
+    <nz-content class="content-container">
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

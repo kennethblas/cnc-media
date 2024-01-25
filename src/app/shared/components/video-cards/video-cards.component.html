@@ -1,0 +1,46 @@
+<nz-card class="video-card" 
+    nz-tooltip 
+    [nzTooltipTitle]="videoDetails ? videoDetails.title : ''"
+    [nzTooltipColor]="'var(--cnc-info)'"
+    [nzCover]="coverTemplate"
+    [nzHoverable]="isHoverable">
+
+    @if (isLoading) {
+        <nz-skeleton [nzAvatar]="true" [nzParagraph]="{ rows: 2 }"></nz-skeleton>
+    } @else {
+        <nz-card-meta [nzTitle]="videoDetails.title"
+            [nzDescription]="description"
+            [nzAvatar]="avatarTemplate">
+        </nz-card-meta>
+    }
+</nz-card>
+
+<ng-template #description>
+    <div class="description">
+        <label>
+            {{ videoDetails.description }}
+        </label>
+        <nz-tag [nzColor]="categoryColorTag">{{ videoDetails.category.toUpperCase() }}</nz-tag>
+    </div>
+</ng-template>
+
+<ng-template #avatarTemplate>
+    <nz-avatar [nzSrc]="videoDetails.avatar"></nz-avatar>
+</ng-template>
+
+<ng-template #coverTemplate>
+    @if (isLoading) {
+        <nz-skeleton-element
+            nzType="image"
+            [nzActive]="true"
+        ></nz-skeleton-element>
+    } @else {
+        <img 
+            alt="video_placeholder" 
+            class="video-thumbnail" 
+            nz-image 
+            [nzSrc]="videoDetails.thumbnailUrl" 
+            nzPlaceholder="./assets/img/video-placeholder.png"
+            nzDisablePreview="true"/>
+    }
+</ng-template>

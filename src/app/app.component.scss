@@ -1,0 +1,77 @@
+@import "../scss/variable";
+
+.layout-container{
+    height: 100%;
+
+    .trigger {
+        font-size: 18px;
+        line-height: 64px;
+        padding: 0 24px;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+    
+    .trigger:hover {
+        color: var(--cnc-info);
+    }
+    
+    nz-header {
+        background: var(--cnc-light);
+        padding: 0;
+        border: 1px solid var(--cnc-gray-tint);
+        height: fit-content;
+        padding:  5px;
+        height: 76px;
+
+        .header-content {
+            min-height: 64px;
+
+            .logo {
+                height: 64px;
+                display: flex;
+                align-items: center;
+
+                @include media-breakpoint-up(xs) {
+                    justify-content: center;
+                }
+
+                img {
+                    height: 54px;
+                    width: 140;
+                    cursor: pointer;
+                }
+            }
+
+            .upload-btn {
+                max-width: 100px;
+            }
+
+            @include media-breakpoint-up(xs) {
+                .upload-btn > .upload-btn-txt { 
+                    display: none;
+                }
+            }
+        }
+    }
+    
+    nz-content {
+        margin: 0 16px;
+    }
+    
+    nz-breadcrumb {
+        margin: 16px 0;
+    }
+
+    .content-container{
+        margin: 0;
+        background: var(--cnc-gray-secondary);
+
+        .inner-content {
+            padding: 28px;
+            min-height: 360px;
+            height: 100%;
+            background-color: var(--cnc-page-default-background);
+        }
+    }
+
+}

@@ -1,0 +1,111 @@
+<nz-card class="video-upload-form">
+
+    @if (isUploadingForm) {
+        @if (isUploadingFormSuccess) {
+            <nz-result
+                nzStatus="success"
+                nzTitle="Video was submitted successfully"
+                nzSubTitle="{{videoUploadFormTileValue}} is now posted"
+            >
+            <div nz-result-extra>
+                <button 
+                    nz-button 
+                    nzType="primary" 
+                    class="home-button" 
+                    routerLink="/home">
+                    Go Home
+                </button>
+            </div>
+            </nz-result>
+        } @else {
+            <div class="video-submit-progress">
+                <nz-progress [nzPercent]="videoUploadPercentage" nzType="circle"></nz-progress>
+                <nz-result
+                    nzStatus="success"
+                    nzTitle="Submitting your Video: {{videoUploadFormTileValue}}"
+                    nzSubTitle="please wait while we wrap up things for you">
+                </nz-result>
+            </div>
+        }
+    } @else {
+        <form nz-form [formGroup]="videoUploadForm" (ngSubmit)="submitForm()">
+            <nz-form-label [nzSpan]="0" nzRequired>Title</nz-form-label>
+            <nz-form-item>
+                <nz-form-control [nzSpan]="24" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="videoTileError" >
+                    <input nz-input formControlName="title" placeholder="Video Title (Test is already taken)" />
+                    <ng-template #videoTileError let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please enter a video title</ng-container>
+                        <ng-container *ngIf="control.hasError('duplicated')">Video title already exist</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-label [nzSpan]="0" nzRequired>Category</nz-form-label>
+            <nz-form-item>
+                <nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="videoCategoryError">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Category" formControlName="category" (nzBlur)="onSelectBlur()">
+                        @for (fp of categoryOptionsList; track fp.value) { 
+                            <nz-option [nzLabel]="fp.displayName" [nzValue]="fp.value"></nz-option>
+                        }
+                    </nz-select>
+                    <ng-template #videoCategoryError let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please enter a video category</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+
+            
+            <nz-form-label [nzSpan]="0" nzRequired>Description</nz-form-label>
+            <nz-form-item>
+                <nz-form-control [nzSpan]="24" nzHasFeedback [nzErrorTip]="videoDescriptionError">
+                    <nz-textarea-count [nzMaxCharacterCount]="800">
+                    <textarea formControlName="description" nz-input rows="5" placeholder="Video description"></textarea>
+                    </nz-textarea-count>
+                    <ng-template #videoDescriptionError let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please write a video description</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- FILE -->
+            <nz-form-label [nzSpan]="0" nzRequired>Video Upload</nz-form-label>
+            <nz-form-item>
+                <nz-form-control [nzSpan]="24" nzHasFeedback nzErrorTip="Please write a video description">
+                    <!-- [nzFileType]="allowedFileType"
+                    [nzAccept]="allowedFileType" -->
+                    <nz-upload
+                        nzType="drag"
+                        [nzMultiple]="false"
+                        [nzLimit]="0"
+                        [nzDisabled]="videoFileFormControl.valid"
+                        [nzShowUploadList]="{showRemoveIcon: true}"
+                        [nzBeforeUpload]="beforeUpload"
+                        nzAction="https://file.io"
+                        (nzChange)="handleUploadChange($event)"
+                        >
+                        <p class="ant-upload-drag-icon">
+                            <span nz-icon nzType="inbox"></span>
+                        </p>
+                        <p class="ant-upload-text">Click or drag file to this area to upload</p>
+                        <p class="ant-upload-hint">
+                            Supported video file types: MP4, AVI, and MOV
+                        </p>
+                        <p class="ant-upload-hint">
+                            Up to 100MB file size is allowed
+                            (25MB for Testing)
+                        </p>
+                    </nz-upload>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item>
+                <nz-form-control>
+                    <div class="upload-action-buttons">
+                        <button nz-button nzType="primary" [disabled]="!videoUploadForm.valid">Submit</button>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    }
+</nz-card>

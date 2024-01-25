@@ -1,0 +1,23 @@
+
+@if (selectedVideoToStream) {
+    <div class="video-stream-container">
+        <div class="video-container">
+            <video controls x-webkit-airplay="allow" data-youtube-id="N9oxmRT2YWw" 
+                autoplay>
+                <source [src]="selectedVideoToStream.videoUrl" type="video/mp4">
+            </video>
+        </div>
+    </div>
+}
+<div class="video-stream-details">
+    <div class="video-avatar">
+        <nz-avatar [nzSize]="40" nzIcon="user" [nzSrc]="selectedVideoToStream.avatar"></nz-avatar>
+    </div>
+    
+    <nz-tag [nzColor]="categoryColorTag">{{ selectedVideoToStream.category.toUpperCase() }}</nz-tag>
+</div>
+
+<div class="video-stream-details">
+    <div class="div-spacer"></div>
+    <h3> {{ selectedVideoToStream.description }}</h3>
+</div>

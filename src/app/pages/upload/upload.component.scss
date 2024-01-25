@@ -1,0 +1,71 @@
+@import "../../../scss/variable";
+
+:host ::ng-deep {
+
+    .video-submit-progress {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        nz-progress {
+            padding: 48px 20px 15px;
+        }
+
+        nz-result {
+            padding: 0px 20px 48px;
+
+            .ant-result-icon {
+                display: none;
+            }
+        }
+    }
+
+
+    .border-invalid {
+        border-color: var(--cnc-danger);
+    }
+}
+
+.video-upload-form {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    margin: auto;
+
+    form {
+        padding: 10px;
+    
+        nz-form-label {
+            font-weight: bold;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            max-height: 300px;
+        }
+    
+        .upload-action-buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: end;
+            align-items: center;
+            gap: 5px;
+        }
+    
+        .ng-touched.ng-invalid {
+            border-color: var(--cnc-danger);
+        }
+    }
+
+    .home-button {
+        background-color: var(--cnc-success);
+        color: var(--cnc-light);
+        border: 2px solid var(--cnc-success);
+    }
+    
+    .home-button:hover {
+        opacity: 0.8;
+    }
+}

@@ -1,0 +1,44 @@
+
+@import "./breakpoints";
+
+/*----------------------------------------------------*\
+                    Default Variables
+\*----------------------------------------------------*/
+:root {
+    /** light */
+    --cnc-light: #ffffff;
+
+    /** dark **/
+    --cnc-dark: #000;
+    
+    /** secondary **/
+    --cnc-secondary-dark: #252525;
+  
+    /** tertiary **/
+    --cnc-tertiary: #0099FF;
+  
+    /** success **/
+    --cnc-success: #52c41a;
+
+    /** info **/
+    --cnc-info: #1890ff;
+    --cnc-info-secondary: #007ACC;
+  
+    /** warning **/
+    --cnc-warning: #f8bb37;
+  
+    /** danger **/
+    --cnc-danger: #ff4d4f;
+
+    /** gray **/
+    --cnc-gray: #4C4C4C;
+    --cnc-gray-secondary: #EDF0F5;
+    --cnc-gray-tint: #CCCCCC;
+    --cnc-gray-light: #E3E3E3;
+    --cnc-gray-border: #898989;
+    --cnc-gray-border-circle: #c5c6c9;
+    --cnc-gray-medium: #777777;
+
+    /** page default background */
+    --cnc-page-default-background: #e6e8ed;
+}

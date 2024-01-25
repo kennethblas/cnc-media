@@ -1,0 +1,85 @@
+@import "../../../../scss/variable";
+
+:host ::ng-deep {
+    .video-card {
+        height: 100%;
+        width: 100%;
+        border-radius: 10px;
+        min-width: 256px;
+        min-height: 256px;
+
+        @include media-breakpoint-up(lg) {
+            height: 256px;
+            width: 256px;
+        }
+
+        .ant-card-body {    
+            padding: 15px 15px 0px;
+            min-height: 106px;
+
+            .description {
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                justify-items: start;
+                gap: 8px;
+
+                label {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    width: 178px;
+                    text-overflow: ellipsis; 
+                }
+
+                nz-tag {
+                    width: fit-content;
+                    font-size: 10px;
+                    line-height: 12px;
+                }
+            }
+
+            @include media-breakpoint-up(lg) {
+                min-height: unset;
+            }
+        }
+
+        .ant-card-meta-avatar {
+            padding-right: 10px;
+        }
+            
+        .ant-card-meta-description {
+            color: var(--cnc-dark);
+            font-size: 12px;
+        }
+
+        .ant-skeleton-with-avatar .ant-skeleton-content .ant-skeleton-title {
+            display: none;
+        }
+
+        .ant-skeleton-with-avatar .ant-skeleton-content .ant-skeleton-title + .ant-skeleton-paragraph {
+            margin-top: 10px;
+        }
+
+        .category-icon {
+            font-size: 14px;
+        }
+    }
+
+    .video-thumbnail,
+    .ant-skeleton > .ant-skeleton-image  {
+        height: 100%;
+        width: 100%;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        min-height: 150px;
+
+        @include media-breakpoint-up(lg) {
+            height: 150px;
+            width: 256px;
+        }
+    }
+
+    .ant-skeleton-element {
+        width: 100%;
+    }
+}
